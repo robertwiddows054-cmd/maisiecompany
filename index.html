@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>MAISIECOMPANY</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-dark: #0a0a0f;
+            --bg-darker: #050508;
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.72);
+            --text-tertiary: rgba(255, 255, 255, 0.5);
+            --border: rgba(255, 255, 255, 0.08);
+            --accent: rgba(255, 255, 255, 0.03);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.75;
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+        }
+
+        /* Touch optimization for mobile */
+        a, button {
+            -webkit-tap-highlight-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Header */
+        .main-header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 15, 0.85);
+            backdrop-filter: blur(24px) saturate(180%);
+            padding: 1.75rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border);
+            transition: background 0.3s ease, border-color 0.3s ease;
+        }
+
+        .main-header.scrolled {
+            background: rgba(10, 10, 15, 0.95);
+            border-bottom-color: rgba(255, 255, 255, 0.12);
+        }
+
+        .header-logo {
+            font-size: 0.95rem;
+            font-weight: 500;
+            letter-spacing: 2.5px;
+            color: var(--text-primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 400;
+            font-size: 0.875rem;
+            transition: color 0.25s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--text-primary);
+            transition: width 0.25s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12rem 5% 8rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.02) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.015) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.015) 0%, transparent 70%);
+            pointer-events: none;
+            filter: blur(100px);
+        }
+
+            .particles-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.4;
+        }
+
+        @media (max-width: 640px) {
+            .particles-canvas {
+                opacity: 0.3;
+            }
+        }
+
+        .hero-content {
+            max-width: 880px;
+            text-align: left;
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: clamp(2.25rem, 5vw, 3.5rem);
+            font-weight: 400;
+            margin-bottom: 3.5rem;
+            line-height: 1.2;
+            color: var(--text-primary);
+            letter-spacing: -0.8px;
+        }
+
+        .hero-intro {
+            font-size: clamp(1.0625rem, 1.5vw, 1.1875rem);
+            color: var(--text-secondary);
+            line-height: 1.85;
+            font-weight: 300;
+            max-width: 780px;
+            margin-bottom: 2.5rem;
+        }
+
+        .hero-signal {
+            font-size: clamp(0.8125rem, 1.2vw, 0.9375rem);
+            color: var(--text-tertiary);
+            line-height: 1.6;
+            font-weight: 300;
+            max-width: 780px;
+            margin-top: 2rem;
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 10rem 5%;
+            position: relative;
+        }
+
+        .section-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: clamp(1.875rem, 4vw, 2.5rem);
+            font-weight: 400;
+            margin-bottom: 4rem;
+            line-height: 1.3;
+            color: var(--text-primary);
+            letter-spacing: -0.5px;
+            position: relative;
+            padding-bottom: 1.75rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 80px;
+            height: 1px;
+            background: var(--border);
+        }
+
+        .section-text {
+            font-size: 1.0625rem;
+            color: var(--text-secondary);
+            line-height: 2;
+            margin-bottom: 2.5rem;
+            font-weight: 300;
+        }
+
+        .section-text:last-of-type {
+            margin-bottom: 0;
+        }
+
+        .status-item {
+            font-size: 1.0625rem;
+            color: var(--text-secondary);
+            line-height: 1.9;
+            margin-bottom: 1.75rem;
+            font-weight: 300;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .status-item::before {
+            content: '—';
+            position: absolute;
+            left: 0;
+            color: var(--text-tertiary);
+        }
+
+        .status-item:last-of-type {
+            margin-bottom: 0;
+        }
+
+        .section-alt {
+            background: var(--bg-darker);
+            position: relative;
+        }
+
+        .section-alt::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border), transparent);
+        }
+
+        /* Subsection styling */
+        .subsection {
+            margin-top: 3rem;
+        }
+
+        .subsection-title {
+            font-size: 1.35rem;
+            font-weight: 400;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+            letter-spacing: -0.2px;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            text-align: center;
+            padding-bottom: 12rem;
+        }
+
+        .contact-section .section-title::after {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .contact-text {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            line-height: 1.95;
+            max-width: 620px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 300;
+        }
+
+        .contact-email {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 1.125rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 4px;
+            transition: color 0.3s ease, border-color 0.3s ease;
+            display: inline-block;
+            font-weight: 400;
+            letter-spacing: 0.3px;
+        }
+
+        .contact-email:hover {
+            color: var(--text-primary);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-darker);
+            padding: 5rem 5% 4rem;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border), transparent);
+        }
+
+        .footer-copyright {
+            color: var(--text-tertiary);
+            font-size: 0.8125rem;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .section-container {
+                max-width: 720px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-header {
+                padding: 1.25rem 4%;
+            }
+
+            .nav-links {
+                gap: 1.75rem;
+                font-size: 0.8125rem;
+            }
+
+            .hero {
+                padding: 8rem 4% 5rem;
+                min-height: 100vh;
+            }
+
+            .hero::after {
+                width: 300px;
+                height: 300px;
+            }
+
+            .hero h1 {
+                margin-bottom: 2.5rem;
+            }
+
+            .hero-intro {
+                margin-bottom: 2rem;
+            }
+
+            .hero-signal {
+                margin-top: 1.5rem;
+            }
+
+            .section {
+                padding: 6rem 4%;
+            }
+
+            .section-title {
+                margin-bottom: 2.5rem;
+                padding-bottom: 1.25rem;
+            }
+
+            .section-title::after {
+                width: 50px;
+            }
+
+            .section-text {
+                font-size: 1rem;
+                margin-bottom: 2rem;
+            }
+
+            .status-item {
+                padding-left: 1.25rem;
+                margin-bottom: 1.5rem;
+                font-size: 1rem;
+            }
+
+            .contact-section {
+                padding-bottom: 6rem;
+            }
+
+            .contact-text {
+                font-size: 1rem;
+            }
+
+            footer {
+                padding: 4rem 4% 3rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .main-header {
+                padding: 1rem 4%;
+            }
+
+            .header-logo {
+                font-size: 0.875rem;
+                letter-spacing: 2px;
+            }
+
+            .nav-links {
+                gap: 1.25rem;
+                font-size: 0.75rem;
+            }
+
+            .hero {
+                padding: 7rem 4% 4rem;
+            }
+
+            .hero h1 {
+                font-size: clamp(1.75rem, 8vw, 2.25rem);
+                margin-bottom: 2rem;
+                line-height: 1.25;
+            }
+
+            .hero-intro {
+                font-size: 1rem;
+                line-height: 1.8;
+                margin-bottom: 1.75rem;
+            }
+
+            .hero-signal {
+                font-size: 0.875rem;
+            }
+
+            .section {
+                padding: 5rem 4%;
+            }
+
+            .section-title {
+                font-size: clamp(1.5rem, 7vw, 1.875rem);
+                margin-bottom: 2rem;
+            }
+
+            .section-text {
+                font-size: 0.9375rem;
+                line-height: 1.85;
+            }
+
+            .status-item {
+                font-size: 0.9375rem;
+                padding-left: 1rem;
+            }
+
+            .subsection-title {
+                font-size: 1.15rem;
+                margin-bottom: 1.25rem;
+            }
+
+            .contact-text {
+                font-size: 0.9375rem;
+            }
+
+            .contact-email {
+                font-size: 0.9375rem;
+            }
+
+            .section-container {
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-header {
+                padding: 0.875rem 4%;
+            }
+
+            .header-logo {
+                font-size: 0.8125rem;
+                letter-spacing: 1.5px;
+            }
+
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.6875rem;
+            }
+
+            .hero {
+                padding: 6rem 4% 3.5rem;
+                min-height: 100vh;
+            }
+
+            .hero::after {
+                width: 200px;
+                height: 200px;
+            }
+
+            .hero h1 {
+                margin-bottom: 1.75rem;
+                letter-spacing: -0.5px;
+            }
+
+            .hero-intro {
+                font-size: 0.9375rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .hero-signal {
+                font-size: 0.8125rem;
+                margin-top: 1.25rem;
+            }
+
+            .section {
+                padding: 4rem 4%;
+            }
+
+            .section-title {
+                margin-bottom: 1.75rem;
+                padding-bottom: 1rem;
+            }
+
+            .section-title::after {
+                width: 40px;
+            }
+
+            .section-text {
+                font-size: 0.875rem;
+                line-height: 1.8;
+                margin-bottom: 1.75rem;
+            }
+
+            .status-item {
+                font-size: 0.875rem;
+                padding-left: 0.875rem;
+                margin-bottom: 1.25rem;
+            }
+
+            .status-item::before {
+                left: -0.25rem;
+            }
+
+            .subsection-title {
+                font-size: 1.0625rem;
+            }
+
+            .contact-section {
+                padding-bottom: 5rem;
+            }
+
+            .contact-text {
+                font-size: 0.875rem;
+                margin-bottom: 2rem;
+            }
+
+            .contact-email {
+                font-size: 0.875rem;
+            }
+
+            footer {
+                padding: 3rem 4% 2.5rem;
+            }
+
+            .footer-copyright {
+                font-size: 0.75rem;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .nav-links {
+                gap: 0.75rem;
+                font-size: 0.625rem;
+            }
+
+            .hero {
+                padding: 5.5rem 4% 3rem;
+            }
+
+            .section {
+                padding: 3.5rem 4%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="main-header">
+        <div class="header-logo">MAISIECOMPANY</div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#who">Who We Are</a></li>
+                <li><a href="#building">The System</a></li>
+                <li><a href="#why">Rationale</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Homepage / Introduction -->
+    <section class="hero" id="home">
+        <canvas class="particles-canvas" id="particlesCanvas"></canvas>
+        <div class="hero-content">
+            <h1>MAISIE: A Persistent, Locally Run Artificial Intelligence System</h1>
+            <p class="hero-intro">
+                Cloud-dependent AI systems reset context and surrender user data with each interaction. MAISIE runs locally with persistent memory because personal AI must be personal—owned, continuous, and private.
+            </p>
+            <p class="hero-signal">Early-stage, intentionally restrained.</p>
+            <p style="font-size: clamp(0.875rem, 1.2vw, 0.9375rem); color: var(--text-tertiary); line-height: 1.6; font-weight: 300; max-width: 780px; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border);">
+                This site presents the philosophy and architecture of MAISIE. MAISIE is under active development with continuous training and refinement prior to availability, and is not yet packaged as a consumer product.
+            </p>
+        </div>
+    </section>
+
+    <!-- Who We Are -->
+    <section class="section" id="who">
+        <div class="section-container">
+            <h2 class="section-title">Who We Are</h2>
+            <p class="section-text">
+                MAISIECOMPANY exists because the current trajectory of AI development is leaving behind fundamental questions about ownership, continuity, and agency. We are building MAISIE not as a product to ship quickly, but as a system to exist for years.
+            </p>
+            <p class="section-text">
+                The philosophy: personal AI should be personal. It should run on user hardware, store memories users control, and operate with autonomy that respects user agency. The values guiding development are ownership, autonomy, restraint, and responsibility. The most capable systems are built with boundaries, not without them.
+            </p>
+            <p class="section-text">
+                This work is being done now because the window for building local AI systems is narrowing. As compute becomes more centralized and models become larger, the barrier to local execution grows. But hardware capabilities are also improving. The intersection of these trends creates a brief period where locally run, persistent AI systems are both technically feasible and strategically important. Waiting means accepting a future where personal AI is permanently cloud-dependent.
+            </p>
+            <p class="section-text">
+                This work addresses structural problems in current AI development. The alternative is a future where meaningful AI interaction requires surrendering data, context, and autonomy to centralized systems. That future already exists for most users.
+            </p>
+        </div>
+    </section>
+
+    <!-- The System -->
+    <section class="section section-alt" id="building">
+        <div class="section-container">
+            <h2 class="section-title">The System</h2>
+            <p class="section-text">
+                MAISIE is a system, not a single model. It is an architecture designed for local execution, persistent memory, and long-term evolution. The components work together to create value that increases over time.
+            </p>
+            <p class="section-text">
+                Local execution and inference mean MAISIE runs on hardware you own or control. This is not a thin client connecting to cloud infrastructure. The core models operate locally, with networking only for updates, not for every interaction. This requires careful optimization and hardware-software co-design, but it enables true privacy and independence.
+            </p>
+            <p class="section-text">
+                Persistent memory and identity are central to what makes MAISIE different. The system maintains a searchable, structured memory of interactions, preferences, and patterns. This memory grows over months and years. It is not cleared with each session. The AI develops a consistent identity because it remembers who it has been and who you are.
+            </p>
+            <p class="section-text">
+                Consistent personality emerges from this persistence. MAISIE does not mimic human emotion, but it develops consistent responses, preferences, and communication styles based on long-term interaction. The system remembers the relationship itself.
+            </p>
+            <p class="section-text">
+                The modular architecture is designed to evolve. As better models become available, as new capabilities are needed, as hardware improves, MAISIE can integrate these changes without losing its core identity or memory. This is not a fixed product. It is a system built for adaptation.
+            </p>
+            
+            <div class="subsection" style="margin-top: 4rem;">
+                <h3 class="subsection-title">Technical Direction</h3>
+                <p class="section-text">
+                    <strong style="color: var(--text-primary); font-weight: 400;">Memory persistence principles:</strong> Memory is structured, searchable, and persistent. Context accumulates over time rather than resetting with each session.
+                </p>
+                <p class="section-text">
+                    <strong style="color: var(--text-primary); font-weight: 400;">Architectural modularity:</strong> Components are decoupled to allow independent evolution. Memory, inference, and interface operate as separate modules with clear interfaces.
+                </p>
+                <p class="section-text">
+                    <strong style="color: var(--text-primary); font-weight: 400;">Model independence:</strong> The system is not bound to a specific model. Better models can be integrated without architectural changes.
+                </p>
+                <p class="section-text">
+                    <strong style="color: var(--text-primary); font-weight: 400;">Upgrade path and hardware considerations:</strong> Designed to work on current hardware while adapting to future improvements. Hardware-software co-design enables efficiency gains as capabilities improve.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rationale -->
+    <section class="section" id="why">
+        <div class="section-container">
+            <h2 class="section-title">Rationale</h2>
+            <p class="section-text">
+                Cloud-dependent, session-based AI systems have structural limitations. Each interaction requires network connectivity and processes on servers outside user control. Conversations are stored in databases owned by others. This model creates dependency, privacy risks, and discontinuity.
+            </p>
+            <p class="section-text">
+                Session-based systems reset context with each interaction. Users repeatedly explain preferences and re-establish context that should persist. Over time, this friction prevents deeper relationships from forming. The system remains a tool rather than becoming a persistent companion.
+            </p>
+            <p class="section-text">
+                Privacy and agency implications are significant. In cloud-based systems, user data becomes training data, patterns become business intelligence, and interactions become monetizable assets. Local execution changes this. Data remains with the user. Patterns remain private. Interactions are not monetized.
+            </p>
+            <p class="section-text">
+                Personal AI systems that integrate into daily life over years require proximity, ownership, and persistence. These are structural requirements, not optional features. The technical trajectory supports local execution as hardware improves and models become more efficient. The window for establishing independent alternatives exists now.
+            </p>
+        </div>
+    </section>
+
+    <!-- Technical Direction -->
+    <section class="section section-alt" id="technical">
+        <div class="section-container">
+            <h2 class="section-title">Technical Direction</h2>
+            <p class="section-text">
+                This work emphasizes system-level thinking over individual components. The architecture matters more than any single model. MAISIE is designed as an integrated system where memory, inference, and interface work together. This requires careful engineering, not just model selection.
+            </p>
+            <p class="section-text">
+                Local compute trends are favorable. Consumer hardware continues to improve. Specialized AI chips are becoming more accessible. Quantization and optimization techniques allow larger models to run on smaller devices. These trends make local execution increasingly viable, but they require architecture designed for efficiency, not just capability.
+            </p>
+            <p class="section-text">
+                Hardware-software co-design is necessary. MAISIE must work well on the hardware that exists today, but it must also adapt as new hardware becomes available. This means modular design, efficient resource utilization, and clear interfaces between components. The system should improve as hardware improves, without requiring complete rewrites.
+            </p>
+            <p class="section-text">
+                Long-term maintainability and adaptability are non-negotiable. MAISIE is built to exist for years. This means code that remains comprehensible, architecture that supports evolution, and design decisions that favor clarity over cleverness. Technical debt accumulates quickly in AI systems. We are building to minimize it from the start.
+            </p>
+            <p class="section-text">
+                No implementation secrets are being revealed here because the value is not in secrecy. The value is in execution. The architecture is open in principle, but the careful engineering required to make it work reliably over time is where the real work happens. That work is ongoing.
+            </p>
+        </div>
+    </section>
+
+    <!-- What MAISIE Needs to Thrive -->
+    <section class="section" id="needs">
+        <div class="section-container">
+            <h2 class="section-title">What MAISIE Needs to Thrive</h2>
+            <p class="section-text">
+                Compute and hardware access are fundamental. This is not a software-only project. Local execution requires appropriate hardware. Testing across different hardware configurations requires access to diverse devices. Development requires compute for training, fine-tuning, and experimentation. These needs are structural. They cannot be avoided.
+            </p>
+            <p class="section-text">
+                Time for careful iteration is essential. MAISIE is not built through rapid prototyping and pivoting. It requires careful design, thorough testing, and patient refinement. The system must work reliably over long time horizons. This cannot be rushed without compromising the core value proposition.
+            </p>
+            <p class="section-text">
+                Long-term aligned capital recognizes this as a multi-year project. Returns, if they come, will come from building something durable and valuable, not from quick exits or rapid scaling. Investors must share the view of locally run, persistent AI as a structural shift, not just another product category.
+            </p>
+            <p class="section-text">
+                Talent aligned with autonomy and responsibility is critical. This work requires engineers who care about ownership, researchers who think about long-term implications, and designers who prioritize clarity over engagement. The team must share values, not just skills.
+            </p>
+            <p class="section-text">
+                A development environment that prioritizes safety through ownership, not restriction, is necessary. MAISIE is built to give users control, which means the development process must respect that principle. Safety comes from transparency, boundaries, and user agency, not from limiting capability or restricting access. This requires careful thinking about what safety means in the context of autonomous, persistent systems.
+            </p>
+            <p class="section-text">
+                These needs are structural, not optional. They define what kind of project this can be. Compromising on them means building something different that does not address the fundamental problems this work aims to solve.
+            </p>
+        </div>
+    </section>
+
+    <!-- AGI Outlook: 2026–2027 -->
+    <section class="section section-alt" id="agi-outlook">
+        <div class="section-container">
+            <h2 class="section-title">AGI Outlook: 2026–2027</h2>
+            <p class="section-text">
+                The next few years will likely see significant shifts in AI capability and accessibility. Model capabilities are improving. Compute costs are decreasing. The barrier to training and deploying sophisticated models is lowering. These trends point toward more general intelligence becoming available, though the timeline and form remain uncertain.
+            </p>
+            <p class="section-text">
+                The movement from centralized AI to local systems may accelerate as hardware improves and models become more efficient. What requires cloud infrastructure today may run locally tomorrow. This shift is not guaranteed, but the technical trajectory supports it. The question is whether independent alternatives can be established before centralized systems become too entrenched.
+            </p>
+            <p class="section-text">
+                Autonomy, memory, and persistence become more important as AI systems become more capable. When AI can maintain coherent, long-term relationships, reset-based interactions become limiting. When AI can remember context across months, session-based models become insufficient. When AI operates with significant autonomy, local control becomes a requirement, not a preference.
+            </p>
+            <p class="section-text">
+                Risks of rushed deployment and over-centralization exist. As capabilities increase, pressure to ship quickly will likely grow. This pressure favors centralized control, rapid scaling, and short-term optimization. The alternative—careful development of local, persistent systems—requires resisting these pressures and building for the long term.
+            </p>
+            <p class="section-text">
+                Predictions are uncertain. The exact timeline for more general intelligence is unknown. The form it will take is unclear. The competitive landscape will shift. What seems likely is that the coming years will see significant change. MAISIE is designed to be prepared for that change, whatever form it takes.
+            </p>
+        </div>
+    </section>
+
+    <!-- MAISIECOMPANY in 2026–2027 -->
+    <section class="section" id="future">
+        <div class="section-container">
+            <h2 class="section-title">MAISIECOMPANY in 2026–2027</h2>
+            <p class="section-text">
+                By 2026–2027, MAISIE aims to be a functional, locally run AI system with persistent memory, consistent personality, and the ability to operate autonomously within defined boundaries. The system should be usable by individuals who want a long-term AI companion, not just a tool for specific tasks.
+            </p>
+            <p class="section-text">
+                The system will evolve alongside advances in compute. As better models become available, MAISIE will integrate them. As hardware improves, MAISIE will leverage new capabilities. As optimization techniques advance, MAISIE will become more efficient. This evolution will occur without losing the core value of persistence and ownership.
+            </p>
+            <p class="section-text">
+                In a world approaching more general intelligence, MAISIE will demonstrate how such systems can operate with user ownership and control. The role is not to compete with cloud-based AGI on raw capability, but to show that locally run, persistent systems can provide different value—based on trust, continuity, and agency.
+            </p>
+            <p class="section-text">
+                What remains intentionally unsolved are problems that require centralization or compromise core principles. MAISIE will not be a platform for monetizing user data. It will not sacrifice privacy for convenience. It will not trade ownership for capability. These boundaries define what MAISIE is and what it is not.
+            </p>
+            <p class="section-text">
+                The goal is to serve those who value ownership, privacy, and long-term relationships with AI systems. By 2026–2027, MAISIE should demonstrate what this looks like in practice.
+            </p>
+        </div>
+    </section>
+
+    <!-- Responsible Development -->
+    <section class="section section-alt" id="responsible">
+        <div class="section-container">
+            <h2 class="section-title">Responsible Development</h2>
+            <p class="section-text">
+                Boundaries and intentional limits are part of the design. MAISIE operates within defined constraints. It does not seek to maximize engagement or expand capabilities without purpose. Limits increase trustworthiness. Systems without boundaries cannot be relied upon.
+            </p>
+            <p class="section-text">
+                Restraint is part of capability. The most capable systems know when not to act, when to defer to the user, when to acknowledge uncertainty. MAISIE is designed with these principles. Capability without restraint becomes dangerous. Restraint without capability becomes useless. The balance is deliberate.
+            </p>
+            <p class="section-text">
+                Long-term accountability requires systems that remain understandable and controllable over years. This means transparent decision-making, clear boundaries, and mechanisms for user control. It means avoiding black-box behaviors that cannot be explained or modified. Accountability requires comprehensibility.
+            </p>
+            <p class="section-text">
+                Responsible development means being honest about limitations. MAISIE will not solve all problems. It will not be the right choice for all users. It will not eliminate risks associated with autonomous systems. It demonstrates an approach that prioritizes ownership, continuity, and careful development over rapid scaling and centralized control.
+            </p>
+            <p class="section-text">
+                AI systems will become more capable and more integrated into daily life. The question is what form this integration will take. Responsible development means building systems that enhance user agency, enable trust through transparency, and operate with clarity rather than opacity.
+            </p>
+        </div>
+    </section>
+
+    <!-- Research Status -->
+    <section class="section section-alt" id="status">
+        <div class="section-container">
+            <h2 class="section-title">Research Status</h2>
+            <p class="status-item">
+                <strong style="color: var(--text-primary); font-weight: 400;">Development Phase:</strong> Internal Research
+            </p>
+            <p class="status-item">
+                <strong style="color: var(--text-primary); font-weight: 400;">Architecture:</strong> Local-first, persistent memory
+            </p>
+            <p class="status-item">
+                <strong style="color: var(--text-primary); font-weight: 400;">Availability:</strong> Not released publicly
+            </p>
+            <p class="status-item">
+                <strong style="color: var(--text-primary); font-weight: 400;">Training:</strong> Continuous development and refinement prior to availability
+            </p>
+            <p class="status-item">
+                <strong style="color: var(--text-primary); font-weight: 400;">Focus Areas:</strong> Memory systems, local inference scalability
+            </p>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="section contact-section" id="contact">
+        <div class="section-container">
+            <h2 class="section-title">Contact for Collaboration</h2>
+            <p class="contact-text">
+                For research inquiries, long-term collaboration, or strategic partnerships:
+            </p>
+            <p style="margin-top: 3rem;">
+                <a href="mailto:hello@maisiecompany.com" class="contact-email">hello@maisiecompany.com</a>
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-copyright">
+            <p>&copy; 2024 MAISIECOMPANY</p>
+        </div>
+    </footer>
+
+    <script>
+        // Particle animation for hero section
+        (function() {
+            const canvas = document.getElementById('particlesCanvas');
+            if (!canvas) return;
+            
+            const ctx = canvas.getContext('2d');
+            const particles = [];
+            // Reduce particle count on mobile for better performance
+            const isMobile = window.innerWidth <= 640;
+            const particleCount = isMobile ? 25 : 50;
+            
+            function resizeCanvas() {
+                canvas.width = canvas.offsetWidth;
+                canvas.height = canvas.offsetHeight;
+            }
+            
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+            
+            class Particle {
+                constructor() {
+                    this.reset();
+                    this.y = Math.random() * canvas.height;
+                }
+                
+                reset() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.size = Math.random() * 1.5 + 0.5;
+                    this.speedY = Math.random() * 0.5 + 0.2;
+                    this.speedX = (Math.random() - 0.5) * 0.3;
+                    this.opacity = Math.random() * 0.5 + 0.2;
+                }
+                
+                update() {
+                    this.y += this.speedY;
+                    this.x += this.speedX;
+                    
+                    if (this.y > canvas.height) {
+                        this.y = 0;
+                        this.x = Math.random() * canvas.width;
+                    }
+                    if (this.x < 0 || this.x > canvas.width) {
+                        this.x = Math.random() * canvas.width;
+                    }
+                }
+                
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+                    ctx.fill();
+                }
+            }
+            
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+            
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                particles.forEach(particle => {
+                    particle.update();
+                    particle.draw();
+                });
+                
+                requestAnimationFrame(animate);
+            }
+            
+            animate();
+        })();
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    // Adjust offset for mobile
+                    const offset = window.innerWidth <= 640 ? 60 : 80;
+                    const targetPosition = target.offsetTop - offset;
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Header background on scroll
+        const header = document.querySelector('.main-header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Intersection Observer for subtle fade-in on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -80px 0px'
+        };
+
+        const fadeObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }, index * 50);
+                }
+            });
+        }, observerOptions);
+
+        // Observe section titles and text for fade-in
+        document.querySelectorAll('.section-title, .section-text').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            fadeObserver.observe(el);
+        });
+    </script>
+</body>
+</html>
